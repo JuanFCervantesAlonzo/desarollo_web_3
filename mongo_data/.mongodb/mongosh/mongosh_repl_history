@@ -1,1 +1,0 @@
-db.createUser({ user: "admin_user", pwd: "web3", roles: [{ role: 'root', db: "admin" }] })
