@@ -3,22 +3,19 @@ from pymongo import MongoClient
 
 app = FastAPI()
 
-# MongoDB connection
-mongo_client = MongoClient("mongodb://admin_user:web3@mongo:27017/")
+# mongo db connection
+mongo_client = MongoClient("mongodb://admin:web3@mongo-service.default.svc.cluster.local:27019/")
 database = mongo_client["desarrollo_web_3"]
 productos = database["productos"]
 
 @app.get("/")
-def read_root():
-    return {"message": "Quiero penesongrandote 67 putita"}
-
-@app.get("/productos")
-def get_productos():
-    productos_list = list(productos.find({}, {"_id": 0}))  # Exclude the _id field
-    return {"productos": productos_list}
+def default():
+    return {"message":"Uvicorn server running"}
 
 @app.get("/health")
 def health_check():
-    return {"status": "ok"}
+    return {"Status":"Estoy malito nene"}
 
-    
+@app.get("/productos")
+def get_products():
+    return list(productos.find({}, {"_id": 0}))
